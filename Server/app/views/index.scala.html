@@ -1,0 +1,57 @@
+@import helper.twitterBootstrap._
+@(title: String, nots: List[Notification])
+
+<body style="text-align:center;">
+<link media="all" type="text/css" rel="stylesheet" href="http://www.dipdizi.com/dipdizi/css/get.css.php?styles[]=bootstrap.min.css&amp;styles[]=chosen.css&amp;styles[]=font-awesome.min.css&amp;styles[]=style.css&amp;styles[]=scroll.css&amp;styles[]=bootstrap-social.css">
+
+<div class="navbar navbar-default">
+    <div class="navbar-brand">@title</div>
+</div>
+
+<br>
+<div class="table-responsive container">
+    <table class="table table-condensed table-hover" style="">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+    @for(n  <- nots){
+    <tr>
+        <th>@n.title</th>
+        <th>@n.message</th>
+        <th>
+            <div class="form-group">
+                <form method="post" action="@routes.Application.sendNot(n.id)">
+                    <button class="btn btn-info">Send</button>
+                </form>
+                <form method="post" action="@routes.Application.delNot(n.id)">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </th>
+    </tr>
+    }
+</table>
+    <form action="@routes.Application.delAll()" method = "post" >
+        <button class="btn btn-danger">Delete all</button>
+    </form>
+</div>
+<form action="@routes.Application.addNotification()" method = "post" >
+    <div class="container">
+        <div class="form-group">
+
+            <div>Title   :<br><input class="form-control" type="text" name="title"> </input></div>
+
+            <div>Message :<br><textarea class="form-control" type="text" name="message"></textarea></div>
+
+        </div>
+    </div>
+    <button class="btn btn-info">Save</button>
+</form>
+
+
+
+
+</body>

@@ -1,0 +1,22 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+POST     /addnots                  controllers.Application.addNotification()
+
+POST     /delall                 controllers.Application.delAll()
+
+GET     /notifications                  controllers.Application.Notifications()
+
+
+GET     /websocket/                    controllers.Application.websocket()
+
+GET     /sockettest                 controllers.Application.sockettest()
+
+
+POST     /sendnot                 controllers.Application.sendNot(i : String)
+
+POST     /delall                 controllers.Application.delNot(i : String)
