@@ -1,27 +1,18 @@
 package controllers;
 
 
-import akka.actor.ActorRef;
-import akka.actor.Props;
-import akka.actor.UntypedActor;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Notification;
-import org.h2.engine.User;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Model;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
 import views.html.index;
-import akka.actor.*;
 import play.libs.F.*;
-import play.mvc.WebSocket;
-import java.util.ArrayList;
+
+import java.io.File;
 import java.util.List;
-import akka.actor.*;
-import views.html.sockettest;
 
 import static play.libs.Json.toJson;
 
@@ -60,13 +51,8 @@ public class Application extends Controller {
 
     }
 
-    public static Result sockettest(){
-
-        return ok(sockettest.render());
-
-    }
-
     public static Result delNot(String id) {
+        System.out.println(id);
         Notification not =(Notification) new Model.Finder(Notification.class, Notification.class).byId(id);
         not.delete();
         return redirect(routes.Application.index());
@@ -76,8 +62,13 @@ public class Application extends Controller {
         Notification not =(Notification) new Model.Finder(Notification.class, Notification.class).byId(id);
 
         JsonNode json = toJson(not);
+        try{
+            socketout.write(json.toString());
+        }catch (NullPointerException e){
 
-        socketout.write(json.toString());
+                return internalServerError("Any clients connected");
+
+        }
 
         return redirect(routes.Application.index());
 

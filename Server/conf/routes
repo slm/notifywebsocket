@@ -3,20 +3,17 @@
 # ~~~~
 
 # Home page
+
 GET     /                           controllers.Application.index()
 
-POST     /addnots                  controllers.Application.addNotification()
+POST     /addnots                   controllers.Application.addNotification()
 
-POST     /delall                 controllers.Application.delAll()
+POST     /delall                    controllers.Application.delAll()
 
-GET     /notifications                  controllers.Application.Notifications()
+GET     /notifications              controllers.Application.Notifications()
 
+GET     /websocket/                 controllers.Application.websocket()
 
-GET     /websocket/                    controllers.Application.websocket()
+POST     /sendnot                   controllers.Application.sendNot(i : String)
 
-GET     /sockettest                 controllers.Application.sockettest()
-
-
-POST     /sendnot                 controllers.Application.sendNot(i : String)
-
-POST     /delall                 controllers.Application.delNot(i : String)
+POST     /delnot                    controllers.Application.delNot(i : String)
